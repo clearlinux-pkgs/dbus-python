@@ -6,13 +6,13 @@
 #
 Name     : dbus-python
 Version  : 1.2.8
-Release  : 1
+Release  : 2
 URL      : https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz
 Source0  : https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz
 Source99 : https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz.asc
 Summary  : Python bindings for libdbus
 Group    : Development/Tools
-License  : Expat(MIT/X11) GPL-2.0
+License  : GPL-2.0
 Requires: dbus-python-license = %{version}-%{release}
 Requires: dbus-python-python = %{version}-%{release}
 Requires: dbus-python-python3 = %{version}-%{release}
@@ -68,7 +68,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1546556672
+export SOURCE_DATE_EPOCH=1546556807
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -80,7 +80,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1546556672
+export SOURCE_DATE_EPOCH=1546556807
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/dbus-python
 cp dbus-gmain/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/dbus-gmain_COPYING
