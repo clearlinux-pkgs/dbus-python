@@ -5,14 +5,14 @@
 # Source0 file verified with key 0xE05AE1478F814C4F (smcv@debian.org)
 #
 Name     : dbus-python
-Version  : 1.2.8
-Release  : 5
-URL      : https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz
-Source0  : https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz
-Source99 : https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz.asc
+Version  : 1.2.10
+Release  : 6
+URL      : https://files.pythonhosted.org/packages/2b/55/c2db676bdc7451105c371089d84b09957e4e4a0ba0ad737eee37773d628d/dbus-python-1.2.10.tar.gz
+Source0  : https://files.pythonhosted.org/packages/2b/55/c2db676bdc7451105c371089d84b09957e4e4a0ba0ad737eee37773d628d/dbus-python-1.2.10.tar.gz
+Source1 : https://files.pythonhosted.org/packages/2b/55/c2db676bdc7451105c371089d84b09957e4e4a0ba0ad737eee37773d628d/dbus-python-1.2.10.tar.gz.asc
 Summary  : Python bindings for libdbus
 Group    : Development/Tools
-License  : GPL-2.0
+License  : MIT
 Requires: dbus-python-license = %{version}-%{release}
 Requires: dbus-python-python = %{version}-%{release}
 Requires: dbus-python-python3 = %{version}-%{release}
@@ -29,6 +29,8 @@ dbus-python_: Python bindings for D-Bus
 Summary: dev components for the dbus-python package.
 Group: Development
 Provides: dbus-python-devel = %{version}-%{release}
+Requires: dbus-python = %{version}-%{release}
+Requires: dbus-python = %{version}-%{release}
 
 %description dev
 dev components for the dbus-python package.
@@ -61,29 +63,35 @@ python3 components for the dbus-python package.
 
 
 %prep
-%setup -q -n dbus-python-1.2.8
+%setup -q -n dbus-python-1.2.10
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1546556807
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1568214282
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1546556807
+export SOURCE_DATE_EPOCH=1568214282
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/dbus-python
-cp dbus-gmain/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/dbus-gmain_COPYING
+cp COPYING %{buildroot}/usr/share/package-licenses/dbus-python/COPYING
 %make_install
 
 %files
@@ -96,7 +104,7 @@ cp dbus-gmain/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/dbus-g
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/dbus-python/dbus-gmain_COPYING
+/usr/share/package-licenses/dbus-python/COPYING
 
 %files python
 %defattr(-,root,root,-)
