@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xE05AE1478F814C4F (smcv@debian.org)
 #
 Name     : dbus-python
-Version  : 1.2.10
-Release  : 6
-URL      : https://files.pythonhosted.org/packages/2b/55/c2db676bdc7451105c371089d84b09957e4e4a0ba0ad737eee37773d628d/dbus-python-1.2.10.tar.gz
-Source0  : https://files.pythonhosted.org/packages/2b/55/c2db676bdc7451105c371089d84b09957e4e4a0ba0ad737eee37773d628d/dbus-python-1.2.10.tar.gz
-Source1 : https://files.pythonhosted.org/packages/2b/55/c2db676bdc7451105c371089d84b09957e4e4a0ba0ad737eee37773d628d/dbus-python-1.2.10.tar.gz.asc
+Version  : 1.2.12
+Release  : 7
+URL      : https://files.pythonhosted.org/packages/b6/85/7b46d31f15a970665533ad5956adee013f03f0ad4421c3c83304ae9c9906/dbus-python-1.2.12.tar.gz
+Source0  : https://files.pythonhosted.org/packages/b6/85/7b46d31f15a970665533ad5956adee013f03f0ad4421c3c83304ae9c9906/dbus-python-1.2.12.tar.gz
+Source1 : https://files.pythonhosted.org/packages/b6/85/7b46d31f15a970665533ad5956adee013f03f0ad4421c3c83304ae9c9906/dbus-python-1.2.12.tar.gz.asc
 Summary  : Python bindings for libdbus
 Group    : Development/Tools
 License  : MIT
@@ -63,14 +63,14 @@ python3 components for the dbus-python package.
 
 
 %prep
-%setup -q -n dbus-python-1.2.10
+%setup -q -n dbus-python-1.2.12
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568214282
+export SOURCE_DATE_EPOCH=1568296225
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
@@ -88,7 +88,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1568214282
+export SOURCE_DATE_EPOCH=1568296225
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/dbus-python
 cp COPYING %{buildroot}/usr/share/package-licenses/dbus-python/COPYING
