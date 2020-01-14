@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xE05AE1478F814C4F (smcv@debian.org)
 #
 Name     : dbus-python
-Version  : 1.2.12
-Release  : 10
-URL      : https://files.pythonhosted.org/packages/b6/85/7b46d31f15a970665533ad5956adee013f03f0ad4421c3c83304ae9c9906/dbus-python-1.2.12.tar.gz
-Source0  : https://files.pythonhosted.org/packages/b6/85/7b46d31f15a970665533ad5956adee013f03f0ad4421c3c83304ae9c9906/dbus-python-1.2.12.tar.gz
-Source1 : https://files.pythonhosted.org/packages/b6/85/7b46d31f15a970665533ad5956adee013f03f0ad4421c3c83304ae9c9906/dbus-python-1.2.12.tar.gz.asc
+Version  : 1.2.16
+Release  : 11
+URL      : https://files.pythonhosted.org/packages/62/7e/d4fb56a1695fa65da0c8d3071855fa5408447b913c58c01933c2f81a269a/dbus-python-1.2.16.tar.gz
+Source0  : https://files.pythonhosted.org/packages/62/7e/d4fb56a1695fa65da0c8d3071855fa5408447b913c58c01933c2f81a269a/dbus-python-1.2.16.tar.gz
+Source1  : https://files.pythonhosted.org/packages/62/7e/d4fb56a1695fa65da0c8d3071855fa5408447b913c58c01933c2f81a269a/dbus-python-1.2.16.tar.gz.asc
 Summary  : Python bindings for libdbus
 Group    : Development/Tools
 License  : MIT
@@ -63,14 +63,15 @@ python3 components for the dbus-python package.
 
 
 %prep
-%setup -q -n dbus-python-1.2.12
+%setup -q -n dbus-python-1.2.16
+cd %{_builddir}/dbus-python-1.2.16
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568296225
+export SOURCE_DATE_EPOCH=1579016685
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
@@ -88,10 +89,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1568296225
+export SOURCE_DATE_EPOCH=1579016685
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/dbus-python
-cp COPYING %{buildroot}/usr/share/package-licenses/dbus-python/COPYING
+cp %{_builddir}/dbus-python-1.2.16/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/fc42db3361510bdd81175b50483588737b66115a
 %make_install
 
 %files
@@ -104,7 +105,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/dbus-python/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/dbus-python/COPYING
+/usr/share/package-licenses/dbus-python/fc42db3361510bdd81175b50483588737b66115a
 
 %files python
 %defattr(-,root,root,-)

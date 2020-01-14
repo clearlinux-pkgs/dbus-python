@@ -1,5 +1,5 @@
 PKG_NAME := dbus-python
-URL = https://files.pythonhosted.org/packages/b6/85/7b46d31f15a970665533ad5956adee013f03f0ad4421c3c83304ae9c9906/dbus-python-1.2.12.tar.gz
+URL = https://files.pythonhosted.org/packages/62/7e/d4fb56a1695fa65da0c8d3071855fa5408447b913c58c01933c2f81a269a/dbus-python-1.2.16.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
