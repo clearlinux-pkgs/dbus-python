@@ -1,4 +1,7 @@
 # This file contains recursive sources that require this package
 PyQt5
 firewalld
+gnome-bluetooth
 hplip
+libsecret
+lutris

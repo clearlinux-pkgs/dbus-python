@@ -1,3 +1,62 @@
+dbus Python Bindings 1.2.18 (2021-07-20)
+========================================
+
+Build-time configuration changes:
+
+• dbus-python will be built for python3 if neither PYTHON nor
+  PYTHON_VERSION is specified. Use a command like
+
+      ./configure PYTHON=$(command -v python2)
+
+  if installation for Python 2 (EOL 2020-01-01) is required.
+
+Dependencies:
+
+• Python 2 reached end-of-life on 2020-01-01. A future version of
+  dbus-python is likely to remove Python 2 support.
+
+Fixes:
+
+• Move from collections.Sequence to collections.abc.Sequence on
+  Python ≥ 3.3, for Python 3.10 compatibility
+  (dbus-python#37; Simon McVittie)
+
+• Avoid another deprecation warning for inspect.getargspec().
+  This is similar to the one fixed in 1.2.4, but for dbus.decorators.signal
+  rather than dbus.decorators.method. (dbus-python!8; Martin Stumpf)
+
+• Fix an unlikely fd leak if memory allocation fails for UnixFd
+  (dbus-python!9, Red Hat #1938703; David King)
+
+• Fix memory and fd leak if UnixFd is given an invalid negative
+  variant_level (Simon McVittie)
+
+• Avoid more deprecation warnings:
+  - gi.repository.GObject.MainLoop etc. (now used via gi.repository.GLib)
+  - gi.repository.GLib.threads_init (no longer necessary at all)
+  (Simon McVittie)
+
+• Disable -Wdeclaration-after-statement. Python 3.9 relies on intermixed
+  declarations and statements in its headers, so we can no longer
+  enforce this. (Simon McVittie)
+
+• Convert examples to Python 3 (Simon McVittie)
+
+• Use the same Python executable for build and dist/distcheck by default
+  (Simon McVittie)
+
+CI fixes:
+
+• Stop installing tap.py for Python 2. The latest version only supports
+  Python 3. (Simon McVittie)
+
+• Move from Python 3.8 on Debian unstable (no longer available) to
+  3.9 on Debian 11 (Simon McVittie)
+
+• Also test with Python 3.10 on Ubuntu 21.10 (Simon McVittie)
+
+• Remove Travis-CI integration, only use Gitlab-CI (Simon McVittie)
+
 dbus Python Bindings 1.2.16 (2020-01-14)
 ========================================
 

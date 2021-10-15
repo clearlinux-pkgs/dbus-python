@@ -1,3 +1,3 @@
 Configure miss: native Windows host
-Configure miss: python module: sphinx
-Configure miss: python module: sphinx_rtd_theme
+Configure miss: python3 module: sphinx
+Configure miss: python3 module: sphinx_rtd_theme
