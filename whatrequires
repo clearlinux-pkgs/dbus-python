@@ -1,7 +1,6 @@
 # This file contains recursive sources that require this package
 PyQt5
-firewalld
+compat-gnome-bluetooth-soname-13
 gnome-bluetooth
 hplip
 libsecret
-lutris

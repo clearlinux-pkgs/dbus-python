@@ -6,7 +6,7 @@
 #
 Name     : dbus-python
 Version  : 1.2.18
-Release  : 32
+Release  : 33
 URL      : https://files.pythonhosted.org/packages/b1/5c/ccfc167485806c1936f7d3ba97db6c448d0089c5746ba105b6eb22dba60e/dbus-python-1.2.18.tar.gz
 Source0  : https://files.pythonhosted.org/packages/b1/5c/ccfc167485806c1936f7d3ba97db6c448d0089c5746ba105b6eb22dba60e/dbus-python-1.2.18.tar.gz
 Source1  : https://files.pythonhosted.org/packages/b1/5c/ccfc167485806c1936f7d3ba97db6c448d0089c5746ba105b6eb22dba60e/dbus-python-1.2.18.tar.gz.asc
@@ -56,6 +56,7 @@ python components for the dbus-python package.
 Summary: python3 components for the dbus-python package.
 Group: Default
 Requires: python3-core
+Provides: pypi(dbus_python)
 
 %description python3
 python3 components for the dbus-python package.
@@ -70,7 +71,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1636154953
+export SOURCE_DATE_EPOCH=1658265844
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -87,7 +88,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1636154953
+export SOURCE_DATE_EPOCH=1658265844
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/dbus-python
 cp %{_builddir}/dbus-python-1.2.18/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/fc42db3361510bdd81175b50483588737b66115a
