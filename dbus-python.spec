@@ -5,73 +5,40 @@
 # Source0 file verified with key 0xE05AE1478F814C4F (smcv@debian.org)
 #
 Name     : dbus-python
-Version  : 1.2.18
-Release  : 33
-URL      : https://files.pythonhosted.org/packages/b1/5c/ccfc167485806c1936f7d3ba97db6c448d0089c5746ba105b6eb22dba60e/dbus-python-1.2.18.tar.gz
-Source0  : https://files.pythonhosted.org/packages/b1/5c/ccfc167485806c1936f7d3ba97db6c448d0089c5746ba105b6eb22dba60e/dbus-python-1.2.18.tar.gz
-Source1  : https://files.pythonhosted.org/packages/b1/5c/ccfc167485806c1936f7d3ba97db6c448d0089c5746ba105b6eb22dba60e/dbus-python-1.2.18.tar.gz.asc
+Version  : 1.3.2
+Release  : 35
+URL      : https://files.pythonhosted.org/packages/c1/d3/6be85a9c772d6ebba0cc3ab37390dd6620006dcced758667e0217fb13307/dbus-python-1.3.2.tar.gz
+Source0  : https://files.pythonhosted.org/packages/c1/d3/6be85a9c772d6ebba0cc3ab37390dd6620006dcced758667e0217fb13307/dbus-python-1.3.2.tar.gz
+Source1  : https://files.pythonhosted.org/packages/c1/d3/6be85a9c772d6ebba0cc3ab37390dd6620006dcced758667e0217fb13307/dbus-python-1.3.2.tar.gz.asc
 Summary  : Python bindings for libdbus
 Group    : Development/Tools
-License  : AFL-2.1 GPL-2.0 MIT
-Requires: dbus-python-license = %{version}-%{release}
-Requires: dbus-python-python = %{version}-%{release}
-Requires: dbus-python-python3 = %{version}-%{release}
+License  : GPL-2.0 GPL-3.0 MIT
 BuildRequires : buildreq-distutils3
+BuildRequires : buildreq-meson
 BuildRequires : pkgconfig(dbus-1)
 BuildRequires : pkgconfig(glib-2.0)
+BuildRequires : pypi(meson)
+BuildRequires : pypi(meson_python)
+BuildRequires : pypi(ninja)
+BuildRequires : pypi(patchelf)
+BuildRequires : pypi(setuptools)
+BuildRequires : pypi(wheel)
 
 %description
 =======================================
 dbus-python_: Python bindings for D-Bus
 =======================================
 
-%package dev
-Summary: dev components for the dbus-python package.
-Group: Development
-Provides: dbus-python-devel = %{version}-%{release}
-Requires: dbus-python = %{version}-%{release}
-
-%description dev
-dev components for the dbus-python package.
-
-
-%package license
-Summary: license components for the dbus-python package.
-Group: Default
-
-%description license
-license components for the dbus-python package.
-
-
-%package python
-Summary: python components for the dbus-python package.
-Group: Default
-Requires: dbus-python-python3 = %{version}-%{release}
-
-%description python
-python components for the dbus-python package.
-
-
-%package python3
-Summary: python3 components for the dbus-python package.
-Group: Default
-Requires: python3-core
-Provides: pypi(dbus_python)
-
-%description python3
-python3 components for the dbus-python package.
-
-
 %prep
-%setup -q -n dbus-python-1.2.18
-cd %{_builddir}/dbus-python-1.2.18
+%setup -q -n dbus-python-1.3.2
+cd %{_builddir}/dbus-python-1.3.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1658265844
+export SOURCE_DATE_EPOCH=1666622883
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
@@ -88,29 +55,15 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1658265844
+export SOURCE_DATE_EPOCH=1666622883
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/dbus-python
-cp %{_builddir}/dbus-python-1.2.18/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/fc42db3361510bdd81175b50483588737b66115a
-cp %{_builddir}/dbus-python-1.2.18/dbus-gmain/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/b79a4d61264303b3341005eef4ce4015f178b1b8
+cp %{_builddir}/dbus-python-%{version}/COPYING %{buildroot}/usr/share/package-licenses/dbus-python/ddae489dc348f108458f890a9cc9c9c53ede9158 || :
+cp %{_builddir}/dbus-python-%{version}/LICENSES/GPL-3.0-or-later.txt %{buildroot}/usr/share/package-licenses/dbus-python/e3bdbf20d43fc066a1b40a64d57d4ae5a31f177f || :
+cp %{_builddir}/dbus-python-%{version}/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/dbus-python/adadb67a9875aeeac285309f1eab6e47d9ee08a7 || :
+cp %{_builddir}/dbus-python-%{version}/subprojects/dbus-gmain/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/dbus-python/3cb34cfc72e87654683f2894299adf912d14b284 || :
+cp %{_builddir}/dbus-python-%{version}/subprojects/dbus-gmain/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/dbus-python/adadb67a9875aeeac285309f1eab6e47d9ee08a7 || :
 %make_install
 
 %files
 %defattr(-,root,root,-)
-
-%files dev
-%defattr(-,root,root,-)
-/usr/include/dbus-1.0/dbus/dbus-python.h
-/usr/lib64/pkgconfig/dbus-python.pc
-
-%files license
-%defattr(0644,root,root,0755)
-/usr/share/package-licenses/dbus-python/b79a4d61264303b3341005eef4ce4015f178b1b8
-/usr/share/package-licenses/dbus-python/fc42db3361510bdd81175b50483588737b66115a
-
-%files python
-%defattr(-,root,root,-)
-
-%files python3
-%defattr(-,root,root,-)
-/usr/lib/python3*/*
