@@ -1,4 +1,5 @@
 # This file contains recursive sources that require this package
+LVM2
 PyQt5
 compat-gnome-bluetooth-soname-13
 gnome-bluetooth
