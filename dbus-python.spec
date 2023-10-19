@@ -9,10 +9,10 @@
 #
 Name     : dbus-python
 Version  : 1.3.2
-Release  : 39
-URL      : https://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.3.2.tar.gz
-Source0  : https://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.3.2.tar.gz
-Source1  : https://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.3.2.tar.gz.asc
+Release  : 40
+URL      : https://files.pythonhosted.org/packages/c1/d3/6be85a9c772d6ebba0cc3ab37390dd6620006dcced758667e0217fb13307/dbus-python-1.3.2.tar.gz
+Source0  : https://files.pythonhosted.org/packages/c1/d3/6be85a9c772d6ebba0cc3ab37390dd6620006dcced758667e0217fb13307/dbus-python-1.3.2.tar.gz
+Source1  : https://files.pythonhosted.org/packages/c1/d3/6be85a9c772d6ebba0cc3ab37390dd6620006dcced758667e0217fb13307/dbus-python-1.3.2.tar.gz.asc
 Summary  : Python bindings for libdbus
 Group    : Development/Tools
 License  : GPL-2.0 GPL-3.0 MIT
@@ -74,13 +74,16 @@ python3 components for the dbus-python package.
 %prep
 %setup -q -n dbus-python-1.3.2
 cd %{_builddir}/dbus-python-1.3.2
+pushd ..
+cp -a dbus-python-1.3.2 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1697562869
+export SOURCE_DATE_EPOCH=1697728511
 export GCC_IGNORE_WERROR=1
 CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -94,6 +97,8 @@ ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx2
+ninja -v -C builddiravx2
 
 %install
 export GCC_IGNORE_WERROR=1
@@ -113,11 +118,13 @@ cp %{_builddir}/dbus-python-%{version}/LICENSES/GPL-3.0-or-later.txt %{buildroot
 cp %{_builddir}/dbus-python-%{version}/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/dbus-python/adadb67a9875aeeac285309f1eab6e47d9ee08a7 || :
 cp %{_builddir}/dbus-python-%{version}/subprojects/dbus-gmain/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/dbus-python/3cb34cfc72e87654683f2894299adf912d14b284 || :
 cp %{_builddir}/dbus-python-%{version}/subprojects/dbus-gmain/LICENSES/MIT.txt %{buildroot}/usr/share/package-licenses/dbus-python/adadb67a9875aeeac285309f1eab6e47d9ee08a7 || :
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 ## install_append content
 # needs to update path on python update
 install -Dm0644 -t %{buildroot}/usr/lib/python3.11/dbus_python-%version.egg-info/ dbus_python.egg-info/*
 ## install_append end
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -139,4 +146,5 @@ install -Dm0644 -t %{buildroot}/usr/lib/python3.11/dbus_python-%version.egg-info
 
 %files python3
 %defattr(-,root,root,-)
+/V3/usr/lib/python3*/*
 /usr/lib/python3*/*
