@@ -1,2 +1,2 @@
 # needs to update path on python update
-install -Dm0644 -t %{buildroot}/usr/lib/python3.11/dbus_python-%version.egg-info/ dbus_python.egg-info/*
+install -Dm0644 -t %{buildroot}/usr/lib/python3.12/dbus_python-%version.egg-info/ dbus_python.egg-info/*
