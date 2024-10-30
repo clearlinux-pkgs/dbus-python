@@ -1,7 +1,9 @@
 # This file contains recursive sources that require this package
 LVM2
 PyQt5
+PyQt6
 compat-gnome-bluetooth-soname-13
 gnome-bluetooth
 hplip
 libsecret
+libvirt-dbus
